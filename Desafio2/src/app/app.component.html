@@ -1,0 +1,49 @@
+  
+  <div class="containter">
+    <div class="row">
+      <h1>Tabla de usuarios</h1>
+    <div>
+  </div>
+
+  <div class="row">
+    <div class="column">
+      <div class="form-group">
+        <input type="text" class="form-control" name="filterEstudiante" placeholder="Buscar... "[(ngModel)]="filterEstudiante">
+      </div>
+    </div>
+  </div>
+   <div class="row">
+    <div class="col"> 
+     <table class="table ">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nombre Completo</th>
+          <th>Nota</th>
+          <th>Resultado Graduacion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let estudiante of estudiantes; let i=index" > <!--| filter:filterEstudiante / Intente usar un pipe para filtrado pero no me funciona, ojala me puedan ayudar a revisar. -->
+        <td >{{estudiante.id}} </td>
+        <td >{{estudiante.nombre  | lowercase  }} {{estudiante.apellido  | uppercase }} </td>
+        <td  *ngIf="estudiante.notaPromedio>=8; then siAprobo else noAprobo"></td>
+        <td [ngClass]="{'reprobado':estudiante.notaPromedio<=8, 'aprobado':estudiante.notaPromedio>=8 }">{{estudiante.notaPromedio}}</td>
+       
+      </tr>
+    </tbody>
+  </table>
+
+
+  <ng-template  #noAprobo >
+    <p class="cajaNota" appRechazado>RECHAZADO</p>
+    
+    </ng-template>
+
+    <ng-template  #siAprobo >
+      <p class="cajaNota" appColorNotas>APROBADO</p>
+    </ng-template>
+
+</div> 
+
+
